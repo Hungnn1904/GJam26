@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
+  m_Name: D0_Fixed_Intro2
+  m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
+  title: D0_R2
+  description: "Gi\xE1 g\u1EA1o c\xF3 nh\xEDch l\xEAn \u0111\xF4i ch\xFAt, d\xE2n
+    b\xE0n t\xE1n nh\u01B0ng ch\u01B0a h\u1ED7n lo\u1EA1n."
+  leftChoice:
+    text: "Can thi\u1EC7p nh\u1EB9 th\u1ECB tr\u01B0\u1EDDng "
+    effects:
+    - stat: 0
+      value: 4
+    - stat: 2
+      value: -4
+  rightChoice:
+    text: "Ch\u01B0a c\u1EA7n nh\xFAng tay"
+    effects:
+    - stat: 2
+      value: 4
+    - stat: 0
+      value: -4
