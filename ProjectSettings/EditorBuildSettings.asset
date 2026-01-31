@@ -6,8 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sokoban1.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/MainMenu.unity
+    guid: e223eca583f2d7843bcea0d525738fb8
+  - enabled: 1
+    path: Assets/Scenes/Intro1.unity
+    guid: d899bb939239af648ad3b805d6b8fc0f
+  - enabled: 1
+    path: Assets/Scenes/MorningScene.unity
+    guid: 26a0c5bbd0777f54baf1998e05e79e94
+  - enabled: 1
+    path: Assets/Scenes/Sokoban2.unity
+    guid: ac777cf5e88c94444bede1c8929cfdff
+  - enabled: 1
+    path: Assets/Scenes/Sokoban3.unity
+    guid: b4aa18db62e41974280a70244cd56722
+  - enabled: 1
+    path: Assets/Scenes/Sokoban4.unity
+    guid: bd42511f960727c4d963cc437552dcf4
+  - enabled: 1
+    path: Assets/Scenes/end_h_1.unity
+    guid: 2afbab96810ffb0528f4a03f76fc1306
+  - enabled: 1
+    path: Assets/Scenes/end_n_1.unity
+    guid: 4c3700b0e346c2626b334f09638a1d6d
+  - enabled: 1
+    path: Assets/Scenes/end_s_1.unity
+    guid: 6f9439a941a2a856baa822121aa79860
+  - enabled: 1
+    path: Assets/Scenes/end_s_2.unity
+    guid: 54e266603f6eb066ea3db8df236a99e5
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
