@@ -6,33 +6,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("Cấu hình màn chơi")]
-    public int totalTargets; 
-    public LayerMask goalLayer; 
-    public float timeLimit = 30f;
-
-    [Header("Âm thanh")]
-    public AudioSource audioSource; // Kéo AudioSource vào đây
-    public AudioClip tingSound;     // Kéo file nhạc Ting Ting vào đây
-
-    [Header("Giao diện UI")]
+    public string nextSceneName; 
+    public LayerMask goalLayer;
     public TextMeshProUGUI timerText;
-    public GameObject winPanel; 
-    public TextMeshProUGUI rewardText;
+    public float timeLimit = 60f;
 
     private float currentTime;
     private bool isWon = false;
-    private int lastBoxCount = 0; // Để theo dõi số hòm vừa vào đích
 
     void Awake() { instance = this; }
 
-    void Start()
-    {
-        currentTime = timeLimit;
-        if(winPanel != null) winPanel.SetActive(false);
-        // Nếu chưa có AudioSource thì tự thêm
-        if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
-    }
+    void Start() { currentTime = timeLimit; }
 
     void Update()
     {
@@ -40,45 +24,46 @@ public class GameManager : MonoBehaviour
         if (currentTime > 0)
         {
             currentTime -= Time.deltaTime;
-            timerText.text = "Thời gian: " + Mathf.Ceil(currentTime).ToString() + "s";
-            if (currentTime <= 10) timerText.color = Color.red;
+            if (timerText) timerText.text = "Time: " + Mathf.Ceil(currentTime) + "s";
         }
     }
 
-    public void CheckWinCondition()
+ public void CheckWinCondition()
+{
+    // Tìm tất cả hòm trong scene (kể cả hòm đang ẩn để tránh lỗi)
+    BoxLogic[] allBoxes = Object.FindObjectsByType<BoxLogic>(FindObjectsSortMode.None);
+    int remainingBoxes = 0;
+
+    foreach (BoxLogic box in allBoxes)
     {
-        int currentCount = 0;
-        GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
-
-        foreach (GameObject box in boxes)
+        if (box.gameObject.activeSelf)
         {
-            Collider2D hitGoal = Physics2D.OverlapCircle(box.transform.position, 0.1f, goalLayer);
-            if (hitGoal != null) currentCount++;
-        }
-
-        // PHẦN QUAN TRỌNG: Nếu số hòm ở đích tăng lên thì phát tiếng Ting
-        if (currentCount > lastBoxCount)
-        {
-            audioSource.PlayOneShot(tingSound);
-        }
-        lastBoxCount = currentCount;
-
-        if (currentCount >= totalTargets && !isWon)
-        {
-            WinGame();
+            // Nếu hòm đang active mà chạm đúng đích -> Ẩn đi
+            if (box.IsInCorrectGoal(goalLayer))
+            {
+                box.gameObject.SetActive(false); 
+                Debug.Log($"Hòm {box.boxID} đã biến mất!");
+            }
+            else
+            {
+                // Nếu hòm chưa vào đích hoặc vào sai đích thì vẫn tính là còn hòm
+                remainingBoxes++;
+            }
         }
     }
 
-    void WinGame()
+    // Nếu không còn hòm nào active -> Thắng
+    if (remainingBoxes == 0 && !isWon)
     {
         isWon = true;
-        if(winPanel != null) winPanel.SetActive(true);
-        int gold = (currentTime > 0) ? 3 : 2;
-        rewardText.text = "BẠN ĐÃ XONG VIỆC!\nNhận được: " + gold + " xu vàng";
+        Debug.Log("Màn chơi hoàn tất!");
+        Invoke("LoadNextScene", 1.0f); // Đợi 1s cho người chơi kịp nhìn
     }
+}
 
-    public void RestartLevel()
+    void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!string.IsNullOrEmpty(nextSceneName)) SceneManager.LoadScene(nextSceneName);
+        else Debug.Log("Hoàn thành tất cả các màn!");
     }
 }

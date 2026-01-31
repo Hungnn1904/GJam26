@@ -1,21 +1,34 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class SokobanController : MonoBehaviour
 {
     public float moveDistance = 1f;
-    public float moveSpeed = 0.1f; 
+    public float moveSpeed = 0.1f;
     public LayerMask wallLayer;
     public LayerMask boxLayer;
 
     private bool isMoving = false;
-    struct GameState { public Vector2 playerPos; public Vector2[] boxesPos; }
-    private Stack<GameState> history = new Stack<GameState>();
+
+    // Lưu trữ dữ liệu để lùi bước (Undo)
+    struct StepData { 
+        public Vector2 playerPos; 
+        public Vector3[] boxesPos; 
+        public bool[] boxesActive; 
+    }
+    private Stack<StepData> history = new Stack<StepData>();
 
     void Update()
     {
+        // Phím R: Chơi lại màn
+        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         if (isMoving) return;
+
+        // Phím E: Reset 1 bước (Undo)
+        if (Input.GetKeyDown(KeyCode.E)) Undo();
 
         Vector2 moveDir = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) moveDir = Vector2.up;
@@ -24,7 +37,6 @@ public class SokobanController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) moveDir = Vector2.right;
 
         if (moveDir != Vector2.zero) TryMove(moveDir);
-        if (Input.GetKeyDown(KeyCode.U)) Undo();
     }
 
     void TryMove(Vector2 direction)
@@ -38,14 +50,14 @@ public class SokobanController : MonoBehaviour
             Vector2 nextBoxPos = (Vector2)boxCollider.transform.position + direction * moveDistance;
             if (!Physics2D.OverlapCircle(nextBoxPos, 0.1f, wallLayer | boxLayer))
             {
-                SaveHistory();
+                SaveStep(); // Lưu trước khi đẩy hòm
                 StartCoroutine(SmoothMove(transform.gameObject, targetPos, false));
                 StartCoroutine(SmoothMove(boxCollider.gameObject, nextBoxPos, true));
             }
         }
         else
         {
-            SaveHistory();
+            SaveStep(); // Lưu trước khi bước đi
             StartCoroutine(SmoothMove(transform.gameObject, targetPos, false));
         }
     }
@@ -55,37 +67,39 @@ public class SokobanController : MonoBehaviour
         isMoving = true;
         Vector2 startPos = obj.transform.position;
         float elapsed = 0;
-
         while (elapsed < moveSpeed)
         {
             obj.transform.position = Vector2.Lerp(startPos, target, elapsed / moveSpeed);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        obj.transform.position = target;
+        obj.transform.position = new Vector3(target.x, target.y, 0);
         isMoving = false;
-
-        // Nếu là hòm vừa di chuyển, yêu cầu GameManager kiểm tra thắng
         if (isBox) GameManager.instance.CheckWinCondition();
     }
 
-    void SaveHistory()
+    void SaveStep()
     {
         GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
-        Vector2[] positions = new Vector2[boxes.Length];
-        for (int i = 0; i < boxes.Length; i++) positions[i] = boxes[i].transform.position;
-        history.Push(new GameState { playerPos = transform.position, boxesPos = positions });
+        Vector3[] bPos = new Vector3[boxes.Length];
+        bool[] bActive = new bool[boxes.Length];
+        for (int i = 0; i < boxes.Length; i++) {
+            bPos[i] = boxes[i].transform.position;
+            bActive[i] = boxes[i].activeSelf;
+        }
+        history.Push(new StepData { playerPos = transform.position, boxesPos = bPos, boxesActive = bActive });
     }
 
-    public void Undo()
+    void Undo()
     {
-        if (isMoving || history.Count == 0) return;
-        GameState lastState = history.Pop();
-        transform.position = lastState.playerPos;
+        if (history.Count == 0) return;
+        StepData last = history.Pop();
+        transform.position = last.playerPos;
         GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
-        for (int i = 0; i < boxes.Length; i++) boxes[i].transform.position = lastState.boxesPos[i];
-        
-        // Sau khi Undo cũng cần kiểm tra lại điều kiện thắng
+        for (int i = 0; i < boxes.Length; i++) {
+            boxes[i].transform.position = last.boxesPos[i];
+            boxes[i].SetActive(last.boxesActive[i]);
+        }
         GameManager.instance.CheckWinCondition();
     }
 }
