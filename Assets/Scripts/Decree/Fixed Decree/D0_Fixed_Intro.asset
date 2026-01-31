@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
   m_Name: D0_Fixed_Intro
   m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
-  title: 
-  description: 
+  title: D0_R1
+  description: "Mu\xF4n t\xE2u b\u1EC7 h\u1EA1, h\xF4m nay l\xE0 ng\xE0y \u0111\u1EA7u
+    ng\xE0i ng\u1EF1 tri\u1EC1u. B\xE1 quan \u0111ang d\xF5i theo t\u1EEBng l\u1EDDi
+    n\xF3i."
   leftChoice:
-    text: 
-    effects: []
+    text: "Nghe theo l\u1EDDi khuy\xEAn c\u1EE7a quan c\u0169"
+    effects:
+    - stat: 0
+      value: 4
   rightChoice:
-    text: 
-    effects: []
+    text: "T\u1EF1 m\xECnh quy\u1EBFt \u0111o\xE1n"
+    effects:
+    - stat: 1
+      value: 4
