@@ -7,12 +7,12 @@ public class DecreeManager : MonoBehaviour
     public int currentDay = 0;
 
     [Header("Decree Pools")]
-    public List<Decree> day0Decrees;
-    public List<Decree> day1Decrees;
-    public List<Decree> day2Decrees;
-    public List<Decree> day3Decrees;
+    public List<DecreeSO> day0Decrees;
+    public List<DecreeSO> day1Decrees;
+    public List<DecreeSO> day2Decrees;
+    public List<DecreeSO> day3Decrees;
 
-    private List<Decree> currentPool;
+    private List<DecreeSO> currentPool;
 
     void Start()
     {
@@ -41,11 +41,11 @@ public class DecreeManager : MonoBehaviour
         }
     }
 
-    public Decree GetRandomDecree()
+    public DecreeSO GetRandomDecree()
     {
         if (currentPool == null || currentPool.Count == 0)
         {
-            Debug.LogError("❌ No decrees in current pool!");
+            Debug.LogError("❌ No decrees in pool");
             return null;
         }
 

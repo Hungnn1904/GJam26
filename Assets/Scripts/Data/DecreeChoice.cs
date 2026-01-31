@@ -1,9 +1,9 @@
-[Serializable]
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
 public class DecreeChoice
 {
-    [TextArea]
-    public string description;
-
-    public StatEffect[] effects;
+    public string text;
+    public List<StatEffect> effects;
 }
-

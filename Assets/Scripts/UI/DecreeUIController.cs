@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DecreeUIController : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class DecreeUIController : MonoBehaviour
     [Header("Managers")]
     public DecreeManager decreeManager;
 
-    private Decree currentDecree;
+    private DecreeSO currentDecree;
 
     void Start()
     {
@@ -29,9 +28,13 @@ public class DecreeUIController : MonoBehaviour
             return;
         }
 
-        decreeText.text = currentDecree.storyText;
-        leftChoiceText.text = currentDecree.leftChoice.description;
-        rightChoiceText.text = currentDecree.rightChoice.description;
+        // ✅ ĐÚNG FIELD
+        decreeText.text = currentDecree.description;
+
+        // ✅ CHOICE TEXT NẰM TRONG DecreeChoice
+        leftChoiceText.text = currentDecree.leftChoice.text;
+        rightChoiceText.text = currentDecree.rightChoice.text;
+
     }
 
     // =========================
@@ -54,9 +57,6 @@ public class DecreeUIController : MonoBehaviour
 
         GameStatsManager.Instance.ApplyChoice(choice);
 
-        // =====================
-        // GOLD RULE (BUỔI SÁNG)
-        // =====================
         switch (result)
         {
             case DecisionResult.Good:
@@ -69,7 +69,7 @@ public class DecreeUIController : MonoBehaviour
                 break;
 
             case DecisionResult.Dangerous:
-                Debug.Log("🚨 Quyết định NGUY HIỂM → gắn cờ mẹ bệnh");
+                Debug.Log("🚨 Quyết định NGUY HIỂM");
                 break;
         }
 

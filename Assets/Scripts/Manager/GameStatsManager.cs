@@ -167,4 +167,9 @@ public class GameStatsManager : MonoBehaviour
     {
         return (popularity + military + finance + religion) / 4f;
     }
+
+    public void PrintStats()
+    {
+        Debug.Log($"📊 Stats | Dân:{popularity} Quân:{military} Tài:{finance} Tôn:{religion} | 💰 Gold:{gold}");
+    }
 }
