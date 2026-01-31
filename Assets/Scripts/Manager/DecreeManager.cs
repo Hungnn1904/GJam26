@@ -3,59 +3,83 @@ using UnityEngine;
 
 public class DecreeManager : MonoBehaviour
 {
-    [Header("Day Config")]
+    [Header("Day")]
     public int currentDay = 0;
 
-    [Header("Decree Pools")]
-    public List<DecreeSO> day0Decrees;
-    public List<DecreeSO> day1Decrees;
-    public List<DecreeSO> day2Decrees;
-    public List<DecreeSO> day3Decrees;
+    [Header("Fixed Decrees Per Day")]
+    public List<DecreeSO> day0Fixed;
+    public List<DecreeSO> day1Fixed;
+    public List<DecreeSO> day2Fixed;
 
-    private List<DecreeSO> currentPool;
+    [Header("Random Decree Pool")]
+    public List<DecreeSO> randomPool;
+
+    private Queue<DecreeSO> todayQueue = new Queue<DecreeSO>();
 
     void Start()
     {
-        LoadPoolForDay();
+        StartDay();
     }
 
-    void LoadPoolForDay()
+    // =========================
+    // START A NEW DAY
+    // =========================
+    public void StartDay()
     {
-        switch (currentDay)
+        todayQueue.Clear();
+
+        // 1️⃣ Fixed decrees
+        List<DecreeSO> fixedList = GetFixedForDay();
+        foreach (var d in fixedList)
         {
-            case 0:
-                currentPool = day0Decrees;
-                break;
-            case 1:
-                currentPool = day1Decrees;
-                break;
-            case 2:
-                currentPool = day2Decrees;
-                break;
-            case 3:
-                currentPool = day3Decrees;
-                break;
-            default:
-                currentPool = day3Decrees;
-                break;
+            todayQueue.Enqueue(d);
+        }
+
+        // 2️⃣ Random decrees (2 cái)
+        List<DecreeSO> tempRandom = new List<DecreeSO>(randomPool);
+
+        for (int i = 0; i < 2 && tempRandom.Count > 0; i++)
+        {
+            int index = Random.Range(0, tempRandom.Count);
+            todayQueue.Enqueue(tempRandom[index]);
+            tempRandom.RemoveAt(index);
         }
     }
 
-    public DecreeSO GetRandomDecree()
+    // =========================
+    // GET NEXT DECREE
+    // =========================
+    public DecreeSO GetNextDecree()
     {
-        if (currentPool == null || currentPool.Count == 0)
+        if (todayQueue.Count == 0)
         {
-            Debug.LogError("❌ No decrees in pool");
+            Debug.Log("📭 Hết trát trong ngày");
             return null;
         }
 
-        int index = Random.Range(0, currentPool.Count);
-        return currentPool[index];
+        return todayQueue.Dequeue();
     }
 
+    // =========================
+    // FIXED BY DAY
+    // =========================
+    List<DecreeSO> GetFixedForDay()
+    {
+        switch (currentDay)
+        {
+            case 0: return day0Fixed;
+            case 1: return day1Fixed;
+            case 2: return day2Fixed;
+            default: return day2Fixed;
+        }
+    }
+
+    // =========================
+    // NEXT DAY
+    // =========================
     public void NextDay()
     {
         currentDay++;
-        LoadPoolForDay();
+        StartDay();
     }
 }

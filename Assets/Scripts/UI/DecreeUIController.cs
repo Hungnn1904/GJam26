@@ -20,21 +20,17 @@ public class DecreeUIController : MonoBehaviour
 
     void ShowNextDecree()
     {
-        currentDecree = decreeManager.GetRandomDecree();
+        currentDecree = decreeManager.GetNextDecree();
 
         if (currentDecree == null)
         {
-            Debug.LogError("❌ No decree to show");
+            Debug.Log("📅 Hết trát trong ngày");
             return;
         }
 
-        // ✅ ĐÚNG FIELD
         decreeText.text = currentDecree.description;
-
-        // ✅ CHOICE TEXT NẰM TRONG DecreeChoice
         leftChoiceText.text = currentDecree.leftChoice.text;
         rightChoiceText.text = currentDecree.rightChoice.text;
-
     }
 
     // =========================
