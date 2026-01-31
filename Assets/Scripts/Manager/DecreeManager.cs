@@ -11,8 +11,10 @@ public class DecreeManager : MonoBehaviour
     public List<DecreeSO> day1Fixed;
     public List<DecreeSO> day2Fixed;
 
-    [Header("Random Decree Pool")]
-    public List<DecreeSO> randomPool;
+    [Header("Random Decrees Per Day")]
+    public List<DecreeSO> day0Random;
+    public List<DecreeSO> day1Random;
+    public List<DecreeSO> day2Random;
 
     private Queue<DecreeSO> todayQueue = new Queue<DecreeSO>();
 
@@ -28,21 +30,18 @@ public class DecreeManager : MonoBehaviour
     {
         todayQueue.Clear();
 
-        // 1️⃣ Fixed decrees
-        List<DecreeSO> fixedList = GetFixedForDay();
-        foreach (var d in fixedList)
-        {
+        // 1️⃣ Fixed
+        foreach (var d in GetFixedForDay())
             todayQueue.Enqueue(d);
-        }
 
-        // 2️⃣ Random decrees (2 cái)
-        List<DecreeSO> tempRandom = new List<DecreeSO>(randomPool);
+        // 2️⃣ Random theo ngày (lấy 2)
+        List<DecreeSO> randomPool = new List<DecreeSO>(GetRandomPoolForDay());
 
-        for (int i = 0; i < 2 && tempRandom.Count > 0; i++)
+        for (int i = 0; i < 2 && randomPool.Count > 0; i++)
         {
-            int index = Random.Range(0, tempRandom.Count);
-            todayQueue.Enqueue(tempRandom[index]);
-            tempRandom.RemoveAt(index);
+            int index = Random.Range(0, randomPool.Count);
+            todayQueue.Enqueue(randomPool[index]);
+            randomPool.RemoveAt(index);
         }
     }
 
@@ -71,6 +70,17 @@ public class DecreeManager : MonoBehaviour
             case 1: return day1Fixed;
             case 2: return day2Fixed;
             default: return day2Fixed;
+        }
+    }
+
+    List<DecreeSO> GetRandomPoolForDay()
+    {
+        switch (currentDay)
+        {
+            case 0: return day0Random;
+            case 1: return day1Random;
+            case 2: return day2Random;
+            default: return day2Random;
         }
     }
 

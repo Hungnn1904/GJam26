@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
-  m_Name: New Decree SO
+  m_Name: D1_F2
   m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
   title: 
   description: 
