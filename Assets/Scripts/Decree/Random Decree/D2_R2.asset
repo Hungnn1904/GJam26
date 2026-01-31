@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
   m_Name: D2_R2
   m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
-  title: 
-  description: 
+  title: "Qu\xE2n \u0111\u1ED9i xin th\xEAm ng\xE2n s\xE1ch"
+  description: "Bi\xEAn gi\u1EDBi kh\xF4ng y\xEAn, c\u1EA7n th\xEAm ti\u1EC1n luy\u1EC7n
+    binh."
   leftChoice:
-    text: 
-    effects: []
+    text: "Chu\u1EA9n chi"
+    effects:
+    - stat: 1
+      value: 12
+    - stat: 2
+      value: -12
   rightChoice:
-    text: 
-    effects: []
+    text: "Kh\xF4ng th\u1EC3 \u0111\xE1p \u1EE9ng"
+    effects:
+    - stat: 1
+      value: -12
+    - stat: 2
+      value: 6
