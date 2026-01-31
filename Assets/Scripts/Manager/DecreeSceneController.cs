@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DecreeSceneController : MonoBehaviour
-{
+{    
     [Header("UI - Decree")]
     public TextMeshProUGUI decreeText;
     public Button leftButton;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DecreeManager : MonoBehaviour
 {
+    public GameObject nextDayButton;
     [Header("Day")]
     public int currentDay = 0;
 
@@ -93,6 +94,7 @@ public class DecreeManager : MonoBehaviour
     // =========================
     public void NextDay()
     {
+        nextDayButton.SetActive(true);
         currentDay++;
         StartDay();
     }
