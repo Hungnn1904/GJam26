@@ -45,11 +45,6 @@ public class DayManager : MonoBehaviour
             currentDay++;
             Debug.Log($"🌅 Sang ngày {currentDay}");
         }
-
-        if (currentDay >= 3)
-        {
-            GameEndManager.Instance.CheckFinalEnding();
-        }
     }
 
     void TriggerBadEnd2()
