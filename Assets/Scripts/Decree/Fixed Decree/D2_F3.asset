@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
+  m_Name: D2_F3
+  m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
+  title: "Gi\xE1o ph\xE1i k\xEAu g\u1ECDi \u0103n chay"
+  description: "\u0102n chay \u0111\u1EC3 t\u1EA9y u\u1EBF, tr\xE1nh thi\xEAn tai."
+  leftChoice:
+    text: "\u1EE6ng h\u1ED9"
+    effects:
+    - stat: 3
+      value: 12
+    - stat: 0
+      value: -8
+  rightChoice:
+    text: "Ph\u1EA3n \u0111\u1ED1i"
+    effects:
+    - stat: 0
+      value: 8
+    - stat: 3
+      value: -12

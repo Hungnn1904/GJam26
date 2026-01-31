@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
+  m_Name: D2_F4
+  m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
+  title: "Kho b\u1EA1c thi\u1EBFu h\u1EE5t"
+  description: "Quan t\xE0i ch\xEDnh n\xF3i ng\xE2n kh\u1ED1 \u0111ang c\u1EA1n d\u1EA7n"
+  leftChoice:
+    text: "Vay ti\u1EC1n gi\xE1o ph\xE1i"
+    effects:
+    - stat: 2
+      value: 12
+    - stat: 3
+      value: -12
+  rightChoice:
+    text: "T\u0103ng thu\u1EBF d\xE2n "
+    effects:
+    - stat: 2
+      value: 10
+    - stat: 0
+      value: -15

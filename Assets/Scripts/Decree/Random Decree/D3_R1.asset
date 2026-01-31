@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe633abd827ab4479b151d8de50ad20, type: 3}
+  m_Name: D3_R1
+  m_EditorClassIdentifier: Assembly-CSharp::DecreeSO
+  title: "Bi\u1EC3u t\xECnh lan r\u1ED9ng"
+  description: "D\xE2n k\xE9o v\u1EC1 tr\u01B0\u1EDBc ho\xE0ng cung."
+  leftChoice:
+    text: "D\xF9ng qu\xE2n \u0111\xE0n \xE1p"
+    effects:
+    - stat: 0
+      value: -18
+    - stat: 1
+      value: 12
+  rightChoice:
+    text: "Nh\u01B0\u1EE3ng b\u1ED9 y\xEAu s\xE1ch"
+    effects:
+    - stat: 0
+      value: 10
+    - stat: 2
+      value: -15
