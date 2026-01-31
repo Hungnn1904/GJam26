@@ -24,7 +24,7 @@ public class Statistic_Item_Script : MonoBehaviour
         }
     }
 
-    public void SetSize(StatType stat, float current)
+    public void Set(StatType stat, float current)
     {
         // Chuẩn hóa current về 0–1
         float fraction = current > 1f ? current / 100f : current;
